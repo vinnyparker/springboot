@@ -1,39 +1,42 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Cadastro de Pessoa</title>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css" media="screen,projection"/>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-<form action="savepessoa" method="post">
+<form action="savepessoa" method="post" th:object="${pessoaobj}">
+    <label>id</label>
+    <input name="id" th:field="*{id}" readonly="readonly">
     <label>Nome</label>
-    <input name="nome">
+    <input name="nome" th:field="*{nome}">
     <label>Sobrenome</label>
-    <input name="sobreNome">
+    <input name="sobreNome" th:field="*{sobreNome}">
     <label>Idade</label>
-    <input name="idade">
+    <input name="idade" th:field="*{idade}">
     <input class="waves-effect waves-light btn" type="submit" value="Salvar">
 </form>
 <a href="/listpessoas">Listar Pessoas</a>
 <table>
-    <!--/*@thymesVar id="pessoas" type="java"*/-->
     <tr th:each="pessoa : ${pessoas}">
         <td th:text=${pessoa.id}></td>
         <td th:text=${pessoa.nome}></td>
         <td th:text=${pessoa.sobreNome}></td>
         <td th:text=${pessoa.idade}></td>
+        <td> <a th:href="@{/pessoa/edit/{idpessoa}(idpessoa=${pessoa.id})}">Editar</a></td>
+        <td> <a th:href="@{/pessoa/delete/{idpessoa}(idpessoa=${pessoa.id})}">Deletar</a></td>
 
     </tr>
 </table>
 
 <!--JavaScript at end of body for optimized loading-->
-<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
 
 </body>
 </html>
